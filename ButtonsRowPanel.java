@@ -11,25 +11,24 @@ public class ButtonsRowPanel extends JPanel{
 	private static final Color DARK_PURPLE = new Color(110,110,255);
 	private static final Color LIGHT_PURPLE= new Color(174,174,253);
 
-	private ButtonsPanel _keyboard;
-	private JButton _cmdKey;
+	private ButtonsPanel _parent;
 	private ArrayList<JButton> _shiftKeys = new ArrayList<JButton>();
 	
     public ButtonsRowPanel(String letters[], ButtonsPanel keyboard) {
-    	_keyboard = keyboard;
+    	_parent = keyboard;
     	KeyListener listener = new KeyListener();
     	
     	for (String let: letters) {
-            _cmdKey = new JButton(let);
-            _cmdKey.setBackground(LIGHT_PURPLE);
+    		JButton btn = new JButton(let);
+            btn.setBackground(LIGHT_PURPLE);
             if (let.equals("Shift")) {
-            	_shiftKeys.add(_cmdKey);
+            	_shiftKeys.add(btn);
             }
             if (let.equals(" ")) {
-            	_cmdKey.setPreferredSize(new Dimension(450, 25));;
+            	btn.setPreferredSize(new Dimension(450, 25));;
             }
-            _cmdKey.addActionListener(listener);
-    		add(_cmdKey);
+            btn.addActionListener(listener);
+    		add(btn);
     	}
     	
     }
@@ -40,7 +39,7 @@ public class ButtonsRowPanel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			
 			String s = e.getActionCommand();
-			String old_text = _keyboard.getText();
+			String old_text = _parent.getText();
 			String new_text = "";
 			
 			if (s.equals("Backspace")) {
@@ -49,21 +48,21 @@ public class ButtonsRowPanel extends JPanel{
 					if (len > 0){
 						StringBuilder sb = new StringBuilder(old_text);
 						new_text = sb.deleteCharAt(len-1).toString();
-						_keyboard.setText(new_text);
+						_parent.setText(new_text);
 					}
 				}
 				return;
 			}
 			
 			if (s.equals("Shift")) {
-				if(_keyboard.isShift()){
-					_keyboard.setShift(false);
+				if(_parent.isShift()){
+					_parent.setShift(false);
 					for (JButton k : _shiftKeys){
 						k.setBackground(LIGHT_PURPLE);
 					}
 				}
 				else {
-					_keyboard.setShift(true);
+					_parent.setShift(true);
 					for (JButton k : _shiftKeys){
 						k.setBackground(DARK_PURPLE);
 					}
@@ -72,15 +71,14 @@ public class ButtonsRowPanel extends JPanel{
 			}
 			
 			if (s.equals("Caps")) {
-				if(_keyboard.isCaps()){
-					_keyboard.setCaps(false);
-					_cmdKey = (JButton)e.getSource();
-					_cmdKey.setBackground(LIGHT_PURPLE);
+				JButton btn = (JButton)e.getSource();
+				if(_parent.isCaps()){
+					_parent.setCaps(false);
+					btn.setBackground(LIGHT_PURPLE);
 				}
 				else {
-					_keyboard.setCaps(true);
-					_cmdKey = (JButton)e.getSource();
-					_cmdKey.setBackground(DARK_PURPLE);
+					_parent.setCaps(true);
+					btn.setBackground(DARK_PURPLE);
 				}
 				return;
 			}
@@ -95,7 +93,7 @@ public class ButtonsRowPanel extends JPanel{
 			
 			if (s.length() > 1 && s.charAt(1) == '/'){
 				
-				if (_keyboard.isShift()){
+				if (_parent.isShift()){
 					s = "" + s.charAt(2);
 				}
 				else{
@@ -103,15 +101,13 @@ public class ButtonsRowPanel extends JPanel{
 				}
 			}
 			
-			if (Character.isLetter(s.charAt(0)) && !(_keyboard.isShift()) && !(_keyboard.isCaps())) {
-					new_text = old_text + s.toLowerCase();
-			}
-			
-			else{
+			if (Character.isLetter(s.charAt(0)) && !(_parent.isShift()) && !(_parent.isCaps())) {
+				new_text = old_text + s.toLowerCase();
+			} else{
 				new_text = old_text + s;
 			}
 			
-			_keyboard.setText(new_text);
+			_parent.setText(new_text);
 		}
     }
 }

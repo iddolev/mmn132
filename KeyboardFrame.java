@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 
 public class KeyboardFrame extends JFrame {
 
+	private TextPanel _textPanel;
+	private ButtonsPanel _buttonsPanel;
+	
 	public KeyboardFrame() {
 		super("Keyboard Application");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -11,10 +14,18 @@ public class KeyboardFrame extends JFrame {
 		setResizable(false);
 		
 		setLayout(new BorderLayout());
-		TextPanel t = new TextPanel();
-		ButtonsPanel k = new ButtonsPanel(t);
-		add(t, BorderLayout.CENTER);
-		add(k, BorderLayout.SOUTH);
+		_textPanel = new TextPanel();
+		_buttonsPanel = new ButtonsPanel(this);
+		add(_textPanel, BorderLayout.CENTER);
+		add(_buttonsPanel, BorderLayout.SOUTH);
+	}
+
+	public String getText() {
+		return _textPanel.getText();
+	}
+
+	public void setText(String text) {
+		_textPanel.setText(text);
 	}
 
 }
