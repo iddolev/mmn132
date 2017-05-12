@@ -32,27 +32,33 @@ public class KeyboardPanel extends JPanel{
 		}
 		setBackground(LAVENDER);
 	}
-	
+
+	/* Set internal "Shift" status to b */
 	public void setShift(boolean b) {
 		_shiftFlag = b;
 	}
 	
+	/* Return internal "Shift" status */
 	public boolean isShift() {
 		return _shiftFlag;
 	}
 	
+	/* Set internal "Caps" status to b */
 	public void setCaps(boolean b) {
 		_capsFlag = b;
 	}
 	
+	/* Return internal "Caps" status */
 	public boolean isCaps() {
 		return _capsFlag;
 	}
 	
+	/* Return current text */
 	public String getText() {
 		return _parent.getText();
 	}
 	
+	/* Set current text */
 	public void setText(String text) {
 		_parent.setText(text);
 	}

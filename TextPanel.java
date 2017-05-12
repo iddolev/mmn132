@@ -2,6 +2,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
+/* Panel with text area and vertical scroll bar */
 public class TextPanel extends JPanel {
 
 	private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, 0, 20); // The font of the text
