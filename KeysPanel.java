@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+/* Panel of one row of buttons */
 public class KeysPanel extends JPanel{
+
+	private static final Color DARK_PURPLE = new Color(110,110,255);
+	private static final Color LIGHT_PURPLE= new Color(174,174,253);
 
 	private Keyboard _keyboard;
 	private JButton _cmdKey;
 	private ArrayList<JButton> _shiftKeys = new ArrayList<JButton>();
-	private Color darkPurple = new Color(110,110,255);
-	private Color lightPurple= new Color(174,174,253);
 	
     public KeysPanel(String letters[], Keyboard keyboard) {
     	_keyboard = keyboard;
@@ -19,7 +21,7 @@ public class KeysPanel extends JPanel{
     	
     	for (String let: letters) {
             _cmdKey = new JButton(let);
-            _cmdKey.setBackground(lightPurple);
+            _cmdKey.setBackground(LIGHT_PURPLE);
             if (let.equals("Shift")) {
             	_shiftKeys.add(_cmdKey);
             }
@@ -57,13 +59,13 @@ public class KeysPanel extends JPanel{
 				if(_keyboard.isShift()){
 					_keyboard.setShift(false);
 					for (JButton k : _shiftKeys){
-						k.setBackground(lightPurple);
+						k.setBackground(LIGHT_PURPLE);
 					}
 				}
 				else {
 					_keyboard.setShift(true);
 					for (JButton k : _shiftKeys){
-						k.setBackground(darkPurple);
+						k.setBackground(DARK_PURPLE);
 					}
 				}
 				return;
@@ -73,12 +75,12 @@ public class KeysPanel extends JPanel{
 				if(_keyboard.isCaps()){
 					_keyboard.setCaps(false);
 					_cmdKey = (JButton)e.getSource();
-					_cmdKey.setBackground(lightPurple);
+					_cmdKey.setBackground(LIGHT_PURPLE);
 				}
 				else {
 					_keyboard.setCaps(true);
 					_cmdKey = (JButton)e.getSource();
-					_cmdKey.setBackground(darkPurple);
+					_cmdKey.setBackground(DARK_PURPLE);
 				}
 				return;
 			}
