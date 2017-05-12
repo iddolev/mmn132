@@ -14,6 +14,11 @@ public class ButtonsRowPanel extends JPanel{
 	private KeyboardPanel _parent;
 	private ArrayList<JButton> _shiftKeys = new ArrayList<JButton>();
 	
+	/* letters[] is a list of strings that are the labels of the keyboard buttons.
+	 * Each such string can have the form "X/Y" 
+	 * where X is the letter to be used when the Shift button is not pressed 
+	 * and Y is the letter to be used when the Shift button is pressed 
+	 */
     public ButtonsRowPanel(String letters[], KeyboardPanel parent) {
     	_parent = parent;
     	KeyListener listener = new KeyListener();

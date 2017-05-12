@@ -6,7 +6,7 @@ public class KeyboardPanel extends JPanel{
 
 	private static final Color LAVENDER = new Color(230,230,250);
 	
-	private String _letters[][] = {{"`/~", "1/!", "2/@", "3/#", "4/$", "5/%", "6/^", "7/&", "8/*", "9/(", "0/)", "-/_", "=/+", "Backspace"},
+	private String _buttonLables[][] = {{"`/~", "1/!", "2/@", "3/#", "4/$", "5/%", "6/^", "7/&", "8/*", "9/(", "0/)", "-/_", "=/+", "Backspace"},
 								  {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[/{", "]/}", "\\/|"},
 								  {"Caps" , "A", "S", "D", "F", "G", "H", "J", "K", "L", ";/:", "'/\"", "Enter"},
 								  {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",/<", "./>", "//?", "Shift"}, 
@@ -23,8 +23,9 @@ public class KeyboardPanel extends JPanel{
 		
 		_keysRows = new ArrayList<ButtonsRowPanel>();
 		_parent = parent;
-		
-		for (String[] row: _letters){
+
+		// Go over the rows of button lables and construct the rows
+		for (String[] row: _buttonLables){
 			ButtonsRowPanel kPanel = new ButtonsRowPanel(row, this);
 			_keysRows.add(kPanel);
 			kPanel.setBackground(LAVENDER);
