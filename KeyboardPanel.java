@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class ButtonsPanel extends JPanel{
+public class KeyboardPanel extends JPanel{
 
 	private static final Color LAVENDER = new Color(230,230,250);
 	
@@ -15,15 +15,14 @@ public class ButtonsPanel extends JPanel{
 	private ArrayList<ButtonsRowPanel> _keysRows;
 	private boolean _shiftFlag = false;
 	private boolean _capsFlag = false;
-	private KeyboardFrame _parent;
+	private MainFrame _parent;
 	
-	public ButtonsPanel(KeyboardFrame parent) {
+	public KeyboardPanel(MainFrame parent) {
 		
 		setLayout(new GridLayout(5,1, 1, 1));
 		
 		_keysRows = new ArrayList<ButtonsRowPanel>();
 		_parent = parent;
-//		textP.setBackground(LAVENDER);
 		
 		for (String[] row: _letters){
 			ButtonsRowPanel kPanel = new ButtonsRowPanel(row, this);

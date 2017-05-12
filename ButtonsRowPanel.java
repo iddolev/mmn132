@@ -11,11 +11,11 @@ public class ButtonsRowPanel extends JPanel{
 	private static final Color DARK_PURPLE = new Color(110,110,255);
 	private static final Color LIGHT_PURPLE= new Color(174,174,253);
 
-	private ButtonsPanel _parent;
+	private KeyboardPanel _parent;
 	private ArrayList<JButton> _shiftKeys = new ArrayList<JButton>();
 	
-    public ButtonsRowPanel(String letters[], ButtonsPanel keyboard) {
-    	_parent = keyboard;
+    public ButtonsRowPanel(String letters[], KeyboardPanel parent) {
+    	_parent = parent;
     	KeyListener listener = new KeyListener();
     	
     	for (String let: letters) {
@@ -34,54 +34,25 @@ public class ButtonsRowPanel extends JPanel{
     }
     
     private class KeyListener implements ActionListener {
-		
+
+		String s, old_text, new_text;
+		JButton sourceBtn;
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			String s = e.getActionCommand();
-			String old_text = _parent.getText();
-			String new_text = "";
-			
-			if (s.equals("Backspace")) {
-				if (old_text != null){
-					int len = old_text.length();
-					if (len > 0){
-						StringBuilder sb = new StringBuilder(old_text);
-						new_text = sb.deleteCharAt(len-1).toString();
-						_parent.setText(new_text);
-					}
-				}
+			sourceBtn = (JButton)e.getSource();
+			s = e.getActionCommand();
+			old_text = _parent.getText();
+			new_text = "";
+
+			if (handleBackspace(s))
 				return;
-			}
-			
-			if (s.equals("Shift")) {
-				if(_parent.isShift()){
-					_parent.setShift(false);
-					for (JButton k : _shiftKeys){
-						k.setBackground(LIGHT_PURPLE);
-					}
-				}
-				else {
-					_parent.setShift(true);
-					for (JButton k : _shiftKeys){
-						k.setBackground(DARK_PURPLE);
-					}
-				}
+
+			if (handleShift(s))
 				return;
-			}
-			
-			if (s.equals("Caps")) {
-				JButton btn = (JButton)e.getSource();
-				if(_parent.isCaps()){
-					_parent.setCaps(false);
-					btn.setBackground(LIGHT_PURPLE);
-				}
-				else {
-					_parent.setCaps(true);
-					btn.setBackground(DARK_PURPLE);
-				}
+
+			if (handleCaps(s))
 				return;
-			}
 			
 			if (s.equals("Tab")) {
 				s = "\t";
@@ -95,19 +66,66 @@ public class ButtonsRowPanel extends JPanel{
 				
 				if (_parent.isShift()){
 					s = "" + s.charAt(2);
-				}
-				else{
+				} else {
 					s = "" + s.charAt(0);
 				}
 			}
 			
 			if (Character.isLetter(s.charAt(0)) && !(_parent.isShift()) && !(_parent.isCaps())) {
 				new_text = old_text + s.toLowerCase();
-			} else{
+			} else {
 				new_text = old_text + s;
 			}
 			
 			_parent.setText(new_text);
+		}
+		
+		private boolean handleBackspace(String s) {
+			if (s.equals("Backspace")) {
+				if (old_text != null){
+					int len = old_text.length();
+					if (len > 0){
+						StringBuilder sb = new StringBuilder(old_text);
+						new_text = sb.deleteCharAt(len-1).toString();
+						_parent.setText(new_text);
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+		
+		private boolean handleShift(String s) {
+			if (s.equals("Shift")) {
+				if(_parent.isShift()) {
+					_parent.setShift(false);
+					for (JButton k : _shiftKeys){
+						k.setBackground(LIGHT_PURPLE);
+					}
+				} else {
+					_parent.setShift(true);
+					for (JButton k : _shiftKeys){
+						k.setBackground(DARK_PURPLE);
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+		
+		private boolean handleCaps(String s) {
+			if (s.equals("Caps")) {
+				if(_parent.isCaps()){
+					_parent.setCaps(false);
+					sourceBtn.setBackground(LIGHT_PURPLE);
+				}
+				else {
+					_parent.setCaps(true);
+					sourceBtn.setBackground(DARK_PURPLE);
+				}
+				return true;
+			}
+			return false;			
 		}
     }
 }

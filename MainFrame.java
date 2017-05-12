@@ -2,12 +2,12 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-public class KeyboardFrame extends JFrame {
+public class MainFrame extends JFrame {
 
 	private TextPanel _textPanel;
-	private ButtonsPanel _buttonsPanel;
+	private KeyboardPanel _buttonsPanel;
 	
-	public KeyboardFrame() {
+	public MainFrame() {
 		super("Keyboard Application");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(900, 500);
@@ -15,7 +15,7 @@ public class KeyboardFrame extends JFrame {
 		
 		setLayout(new BorderLayout());
 		_textPanel = new TextPanel();
-		_buttonsPanel = new ButtonsPanel(this);
+		_buttonsPanel = new KeyboardPanel(this);
 		add(_textPanel, BorderLayout.CENTER);
 		add(_buttonsPanel, BorderLayout.SOUTH);
 	}
