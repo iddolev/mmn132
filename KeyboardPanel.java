@@ -2,9 +2,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/* Implements the keyboard panel (the letters buttons) */
 public class KeyboardPanel extends JPanel{
 
-	private static final Color LAVENDER = new Color(230,230,250);
+	private static final Color LAVENDER = new Color(230,230,250); // the background color of the keyboard
 	
 	private String _buttonLables[][] = {{"`/~", "1/!", "2/@", "3/#", "4/$", "5/%", "6/^", "7/&", "8/*", "9/(", "0/)", "-/_", "=/+", "Backspace"},
 								  {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[/{", "]/}", "\\/|"},
@@ -12,24 +13,22 @@ public class KeyboardPanel extends JPanel{
 								  {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",/<", "./>", "//?", "Shift"}, 
 								  {" "}};
 	
-	private ArrayList<ButtonsRowPanel> _keysRows;
 	private boolean _shiftFlag = false;
 	private boolean _capsFlag = false;
 	private MainFrame _parent;
 	
 	public KeyboardPanel(MainFrame parent) {
 		
-		setLayout(new GridLayout(5,1, 1, 1));
-		
-		_keysRows = new ArrayList<ButtonsRowPanel>();
+		setLayout(new GridLayout(5, 1, 1, 1));
 		_parent = parent;
-
-		// Go over the rows of button lables and construct the rows
+		
+		/* The keyboard is made out of 5 different panels, each panel implements a row of key buttons */
+		/* We go through the key buttons rows, creating each row with the specific keys from the letters array,
+		 * and adding each row to the keyboard panel */
 		for (String[] row: _buttonLables){
-			ButtonsRowPanel kPanel = new ButtonsRowPanel(row, this);
-			_keysRows.add(kPanel);
-			kPanel.setBackground(LAVENDER);
-			add(kPanel);
+			ButtonsRowPanel rPanel = new ButtonsRowPanel(row, this); // creating the row with specific keys from letters array
+			rPanel.setBackground(LAVENDER);
+			add(rPanel);
 		}
 		setBackground(LAVENDER);
 	}

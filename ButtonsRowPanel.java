@@ -17,7 +17,8 @@ public class ButtonsRowPanel extends JPanel{
 	/* letters[] is a list of strings that are the labels of the keyboard buttons.
 	 * Each such string can have the form "X/Y" 
 	 * where X is the letter to be used when the Shift button is not pressed 
-	 * and Y is the letter to be used when the Shift button is pressed 
+	 * and Y is the letter to be used when the Shift button is pressed.
+	 * The string can also be a name of a functional button - Shift, Caps, Enter, Backspace
 	 */
     public ButtonsRowPanel(String letters[], KeyboardPanel parent) {
     	_parent = parent;
@@ -37,7 +38,8 @@ public class ButtonsRowPanel extends JPanel{
     	}
     	
     }
-    
+
+    /* Perform different actions depending on the button pressed */
     private class KeyListener implements ActionListener {
 
 		String s, old_text, new_text;
@@ -70,12 +72,14 @@ public class ButtonsRowPanel extends JPanel{
 			if (s.length() > 1 && s.charAt(1) == '/'){
 				
 				if (_parent.isShift()){
+					// If Shift is pressed, use the second character in the button name
 					s = "" + s.charAt(2);
 				} else {
 					s = "" + s.charAt(0);
 				}
 			}
-			
+
+			// If Shift or Caps are pressed, use the uppercase letter, otherwise lowercase
 			if (Character.isLetter(s.charAt(0)) && !(_parent.isShift()) && !(_parent.isCaps())) {
 				new_text = old_text + s.toLowerCase();
 			} else {
@@ -84,7 +88,8 @@ public class ButtonsRowPanel extends JPanel{
 			
 			_parent.setText(new_text);
 		}
-		
+
+		/* If button name is "Backspace", delete last lette from text */
 		private boolean handleBackspace(String s) {
 			if (s.equals("Backspace")) {
 				if (old_text != null){
@@ -100,6 +105,7 @@ public class ButtonsRowPanel extends JPanel{
 			return false;
 		}
 		
+		/* If button name is "Shift", toggle inner state and also Shift buttons color */
 		private boolean handleShift(String s) {
 			if (s.equals("Shift")) {
 				if(_parent.isShift()) {
@@ -118,6 +124,7 @@ public class ButtonsRowPanel extends JPanel{
 			return false;
 		}
 		
+		/* If button name is "Shift", toggle inner state and also button color */
 		private boolean handleCaps(String s) {
 			if (s.equals("Caps")) {
 				if(_parent.isCaps()){
