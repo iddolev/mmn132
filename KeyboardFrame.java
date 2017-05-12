@@ -1,7 +1,4 @@
-import java.awt.Color;
-import java.awt.GraphicsConfiguration;
-import java.awt.GridLayout;
-import java.awt.HeadlessException;
+import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
@@ -10,15 +7,14 @@ public class KeyboardFrame extends JFrame {
 	public KeyboardFrame() {
 		super("Keyboard Application");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 500);
+		setSize(900, 500);
 		setResizable(false);
 		
-		setLayout(new GridLayout(2,1));
+		setLayout(new BorderLayout());
 		TextPanel t = new TextPanel();
-		Keyboard k = new Keyboard(t);
-		add(t);
-		add(k);
-		setBackground(Color.BLACK);   // ????
+		ButtonsPanel k = new ButtonsPanel(t);
+		add(t, BorderLayout.CENTER);
+		add(k, BorderLayout.SOUTH);
 	}
 
 }

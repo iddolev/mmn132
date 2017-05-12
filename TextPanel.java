@@ -1,25 +1,25 @@
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.*;
+
 import javax.swing.*;
 
 public class TextPanel extends JPanel {
 
+	private static final Font TEXT_FONT = new Font(Font.SANS_SERIF, 0, 20);
 	private final JTextArea _textArea;
-	private Font f = new Font(Font.SANS_SERIF, 0, 20);
-	private JScrollPane scroll;
+	private JScrollPane _scroll;
 	
-	public TextPanel(int height, int witdh) {
-		_textArea = new JTextArea(height, witdh);
+	public TextPanel() {
+		_textArea = new JTextArea();
 		_textArea.setEditable(false);
-		_textArea.setFont(f);
+		_textArea.setFont(TEXT_FONT);
 		_textArea.setLineWrap(true);
-		_textArea.setLayout(new FlowLayout());
-		scroll = new JScrollPane(_textArea);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		// TODO add scroll-bar
-		add(scroll, BorderLayout.CENTER);
+		
+		_scroll = new JScrollPane(_textArea);
+		_scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		_scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+		setLayout(new GridLayout());
+		add(_scroll);
 	}
 	
 	public void setText(String text) {

@@ -2,29 +2,29 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Keyboard extends JPanel{
+public class ButtonsPanel extends JPanel{
 
 	private String _letters[][] = {{"`/~", "1/!", "2/@", "3/#", "4/$", "5/%", "6/^", "7/&", "8/*", "9/(", "0/)", "-/_", "=/+", "Backspace"},
 								  {"Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[/{", "]/}", "\\/|"},
 								  {"Caps" , "A", "S", "D", "F", "G", "H", "J", "K", "L", ";/:", "'/\"", "Enter"},
 								  {"Shift", "Z", "X", "C", "V", "B", "N", "M", ",/<", "./>", "//?", "Shift"}, {" "}};
 	
-	private ArrayList<KeysPanel> _keysRows;
+	private ArrayList<ButtonsRowPanel> _keysRows;
 	private boolean _shiftFlag = false;
 	private boolean _capsFlag = false;
 	private TextPanel _textP;
 	private Color lavender = new Color(230,230,250);
 	
-	public Keyboard(TextPanel textP) {
+	public ButtonsPanel(TextPanel textP) {
 		
 		setLayout(new GridLayout(5,1, 1, 1));
 		
-		_keysRows = new ArrayList<KeysPanel>();
+		_keysRows = new ArrayList<ButtonsRowPanel>();
 		_textP = textP;
 		textP.setBackground(lavender);
 		
 		for (String[] row: _letters){
-			KeysPanel kPanel = new KeysPanel(row, this);
+			ButtonsRowPanel kPanel = new ButtonsRowPanel(row, this);
 			_keysRows.add(kPanel);
 			kPanel.setBackground(lavender);
 			add(kPanel);

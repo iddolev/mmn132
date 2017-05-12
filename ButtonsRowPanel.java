@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /* Panel of one row of buttons */
-public class KeysPanel extends JPanel{
+public class ButtonsRowPanel extends JPanel{
 
 	private static final Color DARK_PURPLE = new Color(110,110,255);
 	private static final Color LIGHT_PURPLE= new Color(174,174,253);
 
-	private Keyboard _keyboard;
+	private ButtonsPanel _keyboard;
 	private JButton _cmdKey;
 	private ArrayList<JButton> _shiftKeys = new ArrayList<JButton>();
 	
-    public KeysPanel(String letters[], Keyboard keyboard) {
+    public ButtonsRowPanel(String letters[], ButtonsPanel keyboard) {
     	_keyboard = keyboard;
     	KeyListener listener = new KeyListener();
     	
